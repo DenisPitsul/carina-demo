@@ -71,7 +71,6 @@ public class WebSampleTest extends AbstractTest {
         Assert.assertEquals(productInfoPage.readBattery(), battery, "Invalid battery info!");
     }
 
-
     @Test(description = "JIRA#AUTO-0009")
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P1)
