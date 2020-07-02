@@ -6,18 +6,14 @@ import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LearningManagementSystemWithMultiplayerForVrArPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LearningManagementSystemWithMultiplayerForVrArPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
     private FooterMenu footerMenu;
 
-    @FindBy(xpath = "//h1[@class='s-intro__title _light _fwsemibold']")
+    @FindBy(xpath = "//h1")
     private ExtendedWebElement title;
 
     public LearningManagementSystemWithMultiplayerForVrArPage(WebDriver driver) {
@@ -38,6 +34,6 @@ public class LearningManagementSystemWithMultiplayerForVrArPage extends Abstract
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/projects/tripointlab.html");
+        return title != null;
     }
 }

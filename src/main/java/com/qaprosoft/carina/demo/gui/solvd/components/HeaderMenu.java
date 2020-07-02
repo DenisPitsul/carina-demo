@@ -6,29 +6,34 @@ import com.qaprosoft.carina.demo.gui.solvd.pages.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class HeaderMenu extends AbstractUIObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(HeaderMenu.class);
 
     @FindBy(xpath = "//a[@class='s-header__logo-link']")
     private ExtendedWebElement homeButton;
-    @FindBy(xpath = "//ul[@class='m-primary__list']/li[1]/a")
+    @FindBy(xpath = "//a[contains(@href, '/work.html')]")
     private ExtendedWebElement workItem;
-    @FindBy(xpath = "//ul[@class='m-primary__list']/li[2]/div")
+    @FindBy(xpath = "//span[contains(@data-title, 'Services')]//parent::div")
     private ExtendedWebElement servicesItem;
-    @FindBy(xpath = "//ul[@class='m-primary__list']/li[3]/div")
+    @FindBy(xpath = "//span[contains(@data-title, 'Products')]//parent::div")
     private ExtendedWebElement productsItem;
-    @FindBy(xpath = "//ul[@class='m-primary__list']/li[4]/a")
+    @FindBy(xpath = "//a[contains(@data-title, 'Team')]")
     private ExtendedWebElement teamItem;
-    @FindBy(xpath = "//ul[@class='m-primary__list']/li[5]/a")
+    @FindBy(xpath = "//a[contains(@href, 'careers')]")
     private ExtendedWebElement careersItem;
-    @FindBy(xpath = "//ul[@class='m-primary__list']/li[6]/a")
+    @FindBy(xpath = "//a[contains(@href, 'blog')]")
     private ExtendedWebElement blogItem;
-    @FindBy(xpath = "//div[@class='s-header__actions']")
+    @FindBy(xpath = "//a[contains(@href, 'contact-us')]")
     private ExtendedWebElement contactUsButton;
+
+    private final By servicesSubItemsListLocator = By.xpath("//span[contains(@data-title, 'Services')]//following-sibling::div/ul/li");
 
     public HeaderMenu(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
@@ -55,26 +60,47 @@ public class HeaderMenu extends AbstractUIObject {
     }
 
     public MobileApplicationDevelopmentPage openMobileApplicationDevelopmentPage() {
+        List<ExtendedWebElement> servicesSubItemsList = findExtendedWebElements(servicesSubItemsListLocator);
         servicesItem.hover();
-        ExtendedWebElement serviceMobileApplicationDevelopment =
-                servicesItem.findExtendedWebElement(By.xpath("//ul[@class='m-primary__dropdown-list']/li[3]/a"));
-        serviceMobileApplicationDevelopment.click();
-        return new MobileApplicationDevelopmentPage(driver);
+        for (ExtendedWebElement servicesSubItem: servicesSubItemsList) {
+            ExtendedWebElement serviceMobileApplicationDevelopment =
+                    servicesSubItem.findExtendedWebElement(By.xpath("//a[contains(@href, 'mobile-applications-development')]"));
+            if (serviceMobileApplicationDevelopment != null) {
+                serviceMobileApplicationDevelopment.click();
+                return new MobileApplicationDevelopmentPage(driver);
+            }
+        }
+        LOGGER.info("Mobile applications development page wasn't found!");
+        return null;
     }
 
     public TestAutomationPage openTestAutomationPage() {
+        List<ExtendedWebElement> servicesSubItemsList = findExtendedWebElements(servicesSubItemsListLocator);
         servicesItem.hover();
-        ExtendedWebElement serviceTestAutomation =
-                servicesItem.findExtendedWebElement(By.xpath("//ul[@class='m-primary__dropdown-list']/li[4]/a"));
-        serviceTestAutomation.click();
-        return new TestAutomationPage(driver);
+        for (ExtendedWebElement servicesSubItem: servicesSubItemsList) {
+            ExtendedWebElement serviceTestAutomation =
+                    servicesSubItem.findExtendedWebElement(By.xpath("//a[contains(@href, 'test-automation')]"));
+            if (serviceTestAutomation != null) {
+                serviceTestAutomation.click();
+                return new TestAutomationPage(driver);
+            }
+        }
+        LOGGER.info("Test automation page wasn't found!");
+        return null;
     }
 
     public VrArApplicationsDevelopmentPage openVrArApplicationsDevelopmentPage() {
+        List<ExtendedWebElement> servicesSubItemsList = findExtendedWebElements(servicesSubItemsListLocator);
         servicesItem.hover();
-        ExtendedWebElement serviceVrArApplicationsDevelopment =
-                servicesItem.findExtendedWebElement(By.xpath("//ul[@class='m-primary__dropdown-list']/li[5]/a"));
-        serviceVrArApplicationsDevelopment.click();
-        return new VrArApplicationsDevelopmentPage(driver);
+        for (ExtendedWebElement servicesSubItem: servicesSubItemsList) {
+            ExtendedWebElement serviceVrArApplicationsDevelopment =
+                    servicesSubItem.findExtendedWebElement(By.xpath("//a[contains(@href, 'vr-ar-application-development')]"));
+            if (serviceVrArApplicationsDevelopment != null) {
+                serviceVrArApplicationsDevelopment.click();
+                return new VrArApplicationsDevelopmentPage(driver);
+            }
+        }
+        LOGGER.info("Vr / Ar application development page page wasn't found!");
+        return null;
     }
 }

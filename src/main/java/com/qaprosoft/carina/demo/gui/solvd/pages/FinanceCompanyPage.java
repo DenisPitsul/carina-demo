@@ -6,12 +6,8 @@ import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FinanceCompanyPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FinanceCompanyPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
@@ -38,6 +34,6 @@ public class FinanceCompanyPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/projects/finance-company.html");
+        return title != null;
     }
 }

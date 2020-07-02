@@ -12,12 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestAutomationBlogPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BlogPage.class);
-
     @FindBy(xpath = "//div[@class='t-header']")
     private BlogHeaderMenu blogHeaderMenu;
 
-    @FindBy(xpath = "//h2[@class='s-404__subtitle _primary _fwlight']")
+    @FindBy(xpath = "//h2[contains(text(), 'Something is wrong')]")
     private ExtendedWebElement subTitle;
 
     public TestAutomationBlogPage(WebDriver driver) {
@@ -36,6 +34,6 @@ public class TestAutomationBlogPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/test-automation");
+        return subTitle != null;
     }
 }

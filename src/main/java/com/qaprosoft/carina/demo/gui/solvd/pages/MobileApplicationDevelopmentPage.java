@@ -4,18 +4,17 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class MobileApplicationDevelopmentPage extends AbstractPage {
-    private static final Logger LOGGER = Logger.getLogger(MobileApplicationDevelopmentPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
     private FooterMenu footerMenu;
 
+    @FindBy(xpath = "//p[@class='b-description__content-inner']")
+    private ExtendedWebElement textInfo;
     @FindBy(xpath = "//div[@class='b-cta__actions']/a")
     private ExtendedWebElement getQuoteTodayButton;
 
@@ -38,6 +37,6 @@ public class MobileApplicationDevelopmentPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/services/mobile-applications-development.html");
+        return textInfo != null;
     }
 }

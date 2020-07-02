@@ -10,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CareersApplyPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CareersApplyPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
@@ -38,6 +36,6 @@ public class CareersApplyPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/careers-apply.html");
+        return vacancyName != null;
     }
 }

@@ -6,18 +6,14 @@ import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ContactUsPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContactUsPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
     private FooterMenu footerMenu;
 
-    @FindBy(xpath = "//section[@class='s-default s-contact__step _step-1 _lighter _pt70 _pb120']//h4[@class='s-default__title _primary _fwsemibold _centered']")
+    @FindBy(xpath = "//section[@class='s-default s-contact__step _step-1 _lighter _pt70 _pb120']//h4[contains(text(), 'Contact us')]")
     private ExtendedWebElement contactUsFormTitle;
 
     public ContactUsPage(WebDriver driver) {
@@ -38,6 +34,6 @@ public class ContactUsPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/contact-us.html");
+        return contactUsFormTitle != null;
     }
 }

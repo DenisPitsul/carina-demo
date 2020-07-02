@@ -4,9 +4,8 @@ import com.qaprosoft.carina.core.foundation.AbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
-import com.qaprosoft.carina.demo.gui.solvd.components.SeniorAndroidDeveloperVacancyDetail;
 import com.qaprosoft.carina.demo.gui.solvd.components.SubscribeDialog;
-import com.qaprosoft.carina.demo.gui.solvd.components.TestAutomationEngineerVacancyDetail;
+import com.qaprosoft.carina.demo.gui.solvd.helpers.TestData;
 import com.qaprosoft.carina.demo.gui.solvd.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -41,9 +40,7 @@ public class SolvdTest extends AbstractTest {
         TestAutomationPage testAutomationPage = homePage.getHeaderMenu().openTestAutomationPage();
         Assert.assertTrue(testAutomationPage.isPageOpened(), "Test automation page is not opened!");
 
-        Assert.assertTrue(testAutomationPage.getClientSection().isClientReviewElementVisible());
-        testAutomationPage.getClientSection().playClientReviewVideo();
-        Assert.assertTrue(testAutomationPage.getClientSection().isClientReviewVideoVisible());
+        testAutomationPage.playClientReviewVideo();
     }
 
     @Test(description = "AUTO-0003")
@@ -63,7 +60,7 @@ public class SolvdTest extends AbstractTest {
     @Test(description = "AUTO-0004")
     @MethodOwner(owner = "DenisPitsul")
     @TestPriority(Priority.P1)
-    public void verificationSeniorAndroidDeveloperVacancy() {
+    public void verificationFirstVacancy() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
@@ -71,12 +68,8 @@ public class SolvdTest extends AbstractTest {
         CareersPage careersPage = homePage.getHeaderMenu().openCareersPage();
         Assert.assertTrue(careersPage.isPageOpened(), "Careers page is not opened!");
 
-        SeniorAndroidDeveloperVacancyDetail seniorAndroidDeveloperVacancyDetail
-                = careersPage.openSeniorAndroidDeveloperVacancy();
-        CareersApplyPage careersApplyPage = seniorAndroidDeveloperVacancyDetail.openCareersApply();
-        Assert.assertTrue(careersApplyPage.isPageOpened(), "Careers apply page is not opened!");
-
-        Assert.assertEquals(careersApplyPage.getVacancyNameText(), "Senior Android Developer (Belarus/Ukraine)");
+        careersPage.openFirstVacancy();
+        Assert.assertTrue(careersPage.isFirstVacancyDetailBlockVisible());
     }
 
     @Test(description = "AUTO-0005")
@@ -108,7 +101,7 @@ public class SolvdTest extends AbstractTest {
         Assert.assertTrue(blogPage.isPageOpened(), "Blog page is not opened!");
 
         SubscribeDialog subscribeDialog = blogPage.getBlogHeaderMenu().openSubscribe();
-        subscribeDialog.typeEmail("denia.pitsul@gmail.com");
+        subscribeDialog.typeEmail(TestData.EMAIL);
         subscribeDialog.subscribe();
 
         Assert.assertTrue(subscribeDialog.isSuccessMessageVisible(), "Subscription to blog failed!");
@@ -176,26 +169,6 @@ public class SolvdTest extends AbstractTest {
         Assert.assertTrue(youtubeSolvdIncPage.isPageOpened(), "Youtube solvd inc page is not opened!");
 
         Assert.assertEquals(youtubeSolvdIncPage.getChannelNameText(), "Solvd, Inc.");
-    }
-
-    @Test(description = "AUTO-0011")
-    @MethodOwner(owner = "DenisPitsul")
-    @TestPriority(Priority.P1)
-    public void verificationTestAutomationEngineerVacancy() {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-
-        CareersPage careersPage = homePage.getHeaderMenu().openCareersPage();
-        Assert.assertTrue(careersPage.isPageOpened(), "Careers page is not opened!");
-
-        TestAutomationEngineerVacancyDetail testAutomationEngineerVacancyDetail
-                = careersPage.openTestAutomationEngineerVacancy();
-        CareersApplyPage careersApplyPage = testAutomationEngineerVacancyDetail.openCareersApply();
-        Assert.assertTrue(careersApplyPage.isPageOpened(), "Careers apply page is not opened!");
-
-        Assert.assertEquals(careersApplyPage.getVacancyNameText(),
-                "Test Automation Engineer (Java, Selenium) (Argentina, Tandil/remotely from any city in the country)");
     }
 
     @Test(description = "AUTO-0012")
@@ -268,7 +241,7 @@ public class SolvdTest extends AbstractTest {
         BlogPage blogPage = homePage.getHeaderMenu().openBlogPage();
         Assert.assertTrue(blogPage.isPageOpened(), "Blog page is not opened!");
 
-        blogPage.typeTextToSearchInput("test automation tags page");
+        blogPage.typeTextToSearchInput(TestData.TEST_AUTOMATION_TAG);
         TestAutomationBlogPage testAutomationBlogPage = blogPage.openTestAutomationBlogPage();
         Assert.assertTrue(testAutomationBlogPage.isPageOpened(), "Test automation blog page is not opened!");
 

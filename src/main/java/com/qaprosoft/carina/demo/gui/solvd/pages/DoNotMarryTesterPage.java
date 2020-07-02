@@ -5,12 +5,8 @@ import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.solvd.components.BlogHeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DoNotMarryTesterPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DoNotMarryTesterPage.class);
-
     @FindBy(xpath = "//div[@class='t-header']")
     private BlogHeaderMenu blogHeaderMenu;
 
@@ -31,6 +27,6 @@ public class DoNotMarryTesterPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://blog.solvd.com/james_bach");
+        return title != null;
     }
 }

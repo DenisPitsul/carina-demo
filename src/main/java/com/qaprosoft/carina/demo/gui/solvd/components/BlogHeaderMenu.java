@@ -12,16 +12,16 @@ import org.slf4j.LoggerFactory;
 public class BlogHeaderMenu extends AbstractUIObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(BlogHeaderMenu.class);
 
-    @FindBy(xpath = "//a[@href='https://blog.solvd.com/']//img")
+    @FindBy(xpath = "//a[contains(@href, 'blog.solvd')]//img")
     private ExtendedWebElement homeButton;
-    @FindBy(xpath = "////ul[@class='t456__list']/li[1]/a")
+    @FindBy(xpath = "//a[@class='t-menu__link-item' and contains(@href, 'blog.solvd')]")
     private ExtendedWebElement homeItem;
-    @FindBy(xpath = "//ul[@class='t456__list']/li[2]/a")
+    @FindBy(xpath = "//a[contains(@href, 'subscribe')]")
     private ExtendedWebElement subscribeItem;
-    @FindBy(xpath = "//ul[@class='t456__list']/li[3]/a")
+    @FindBy(xpath = "//a[contains(@href, 'www.solvd.com')]")
     private ExtendedWebElement backToSolvdItem;
 
-    @FindBy(xpath = "//div[@class='t-popup__container t-width t-width_6 t-popup__container-animated']")
+    @FindBy(xpath = "//img[@class='t281__img t-img loaded']//parent::div")
     private SubscribeDialog subscribeDialog;
 
     public BlogHeaderMenu(WebDriver driver, SearchContext searchContext) {

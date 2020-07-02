@@ -10,9 +10,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class FooterMenu extends AbstractUIObject {
 
-    @FindBy(xpath = "//div[@class='s-footer__socials _desktop']//ul/li[3]/a")
+    @FindBy(xpath = "//div[@class='s-footer__socials _desktop']//a[contains(@href, 'instagram')]")
     private ExtendedWebElement instagramLink;
-    @FindBy(xpath = "//div[@class='s-footer__socials _desktop']//ul/li[4]/a")
+    @FindBy(xpath = "//div[@class='s-footer__socials _desktop']//a[contains(@href, 'youtube')]")
     private ExtendedWebElement youtubeLink;
 
     public FooterMenu(WebDriver driver, SearchContext searchContext) {

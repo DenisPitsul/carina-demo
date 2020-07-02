@@ -4,30 +4,26 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
-import com.qaprosoft.carina.demo.gui.solvd.components.SeniorAndroidDeveloperVacancyDetail;
-import com.qaprosoft.carina.demo.gui.solvd.components.TestAutomationEngineerVacancyDetail;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class CareersPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CareersPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
     private FooterMenu footerMenu;
 
-    @FindBy(xpath = "//ul[@class='l-vacancies']/li[1]//button")
-    private ExtendedWebElement testAutomationEngineerVacancyButton;
-    @FindBy(xpath = "//ul[@class='l-vacancies']/li[1]//button//following-sibling::div[@class='l-vacancies__inner']")
-    TestAutomationEngineerVacancyDetail testAutomationEngineerVacancyDetail;
+    @FindBy(xpath = "//h4[contains(text(), Current vacancies)]")
+    private ExtendedWebElement bodyTitle;
 
-    @FindBy(xpath = "//ul[@class='l-vacancies']/li[3]//button")
-    private ExtendedWebElement seniorAndroidDeveloperVacancyButton;
-    @FindBy(xpath = "//ul[@class='l-vacancies']/li[3]//button//following-sibling::div[@class='l-vacancies__inner']")
-    SeniorAndroidDeveloperVacancyDetail seniorAndroidDeveloperVacancyDetail;
+    @FindBy(xpath = "//ul[@class='l-vacancies']/li")
+    private List<ExtendedWebElement> vacanciesList;
+
+    private final By vacancyButtonLocator = By.tagName("button");
+    private final By vacancyDetailBlockLocator = By.xpath("//div[@class='l-vacancies__inner']");
 
     public CareersPage(WebDriver driver) {
         super(driver);
@@ -41,18 +37,23 @@ public class CareersPage extends AbstractPage {
         return footerMenu;
     }
 
-    public SeniorAndroidDeveloperVacancyDetail openSeniorAndroidDeveloperVacancy() {
-        seniorAndroidDeveloperVacancyButton.click();
-        return seniorAndroidDeveloperVacancyDetail;
+    public void openFirstVacancy() {
+        ExtendedWebElement firstVacancyButton = vacanciesList.get(0).findExtendedWebElement(vacancyButtonLocator);
+        if (firstVacancyButton != null) {
+            firstVacancyButton.click();
+        }
     }
 
-    public TestAutomationEngineerVacancyDetail openTestAutomationEngineerVacancy() {
-        testAutomationEngineerVacancyButton.click();
-        return testAutomationEngineerVacancyDetail;
+    public boolean isFirstVacancyDetailBlockVisible() {
+        ExtendedWebElement firstVacancyDetailBlock = vacanciesList.get(0).findExtendedWebElement(vacancyDetailBlockLocator);
+        if (firstVacancyDetailBlock != null) {
+            return firstVacancyDetailBlock.isVisible(2);
+        }
+        return false;
     }
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/careers.html");
+        return bodyTitle != null;
     }
 }

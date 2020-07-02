@@ -4,10 +4,13 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class MinimumViableProductPage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MinimumViableProductPage.class);
@@ -17,10 +20,14 @@ public class MinimumViableProductPage extends AbstractPage {
     @FindBy(xpath = "//footer[@class='s-footer']")
     private FooterMenu footerMenu;
 
-    @FindBy(xpath = "//ul[@class='s-mvp__features-list _hide']/li[2]/div")
-    private ExtendedWebElement teamOfExpertsItem;
+    @FindBy(xpath = "//div[@class='s-intro__badge']")
+    private ExtendedWebElement topLabel;
+    @FindBy(xpath = "//ul[@class='s-mvp__features-list _hide']/li")
+    private List<ExtendedWebElement> possibilitiesList;
     @FindBy(xpath = "//img[@src='./images/mvp-yellow-1.jpg']")
     private ExtendedWebElement teamOfExpertsDetailFirstImage;
+
+    private final By teamOfExpertsItemLocator = By.xpath("//p[contains(text(), 'A team of experts')]//parent::div");
 
     public MinimumViableProductPage(WebDriver driver) {
         super(driver);
@@ -35,7 +42,14 @@ public class MinimumViableProductPage extends AbstractPage {
     }
 
     public void openTeamOfExpertsDetail() {
-        teamOfExpertsItem.click();
+        for (ExtendedWebElement possibilityItem: possibilitiesList) {
+            ExtendedWebElement teamOfExpertsItem = possibilityItem.findExtendedWebElement(teamOfExpertsItemLocator);
+            if (teamOfExpertsItem != null) {
+                teamOfExpertsItem.click();
+                break;
+            }
+        }
+        LOGGER.info("Team of expert item wasn't found!");
     }
 
     public boolean isTeamOfExpertsDetailFirstImageVisible() {
@@ -44,6 +58,6 @@ public class MinimumViableProductPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/services/minimum-viable-product.html");
+        return topLabel != null;
     }
 }

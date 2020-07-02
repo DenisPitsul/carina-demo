@@ -6,18 +6,14 @@ import com.qaprosoft.carina.demo.gui.solvd.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.solvd.components.HeaderMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AboutUsPage extends AbstractPage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AboutUsPage.class);
-
     @FindBy(xpath = "//header[@class='s-header']")
     private HeaderMenu headerMenu;
     @FindBy(xpath = "//footer[@class='s-footer']")
     private FooterMenu footerMenu;
 
-    @FindBy(xpath = "//h4[@class='s-experts__skills-title _primary _centered _fwsemibold']")
+    @FindBy(xpath = "//div[@class='s-experts__skills-top']//h4")
     private ExtendedWebElement solvdTeamTitle;
 
     public AboutUsPage(WebDriver driver) {
@@ -38,6 +34,6 @@ public class AboutUsPage extends AbstractPage {
 
     @Override
     public boolean isPageOpened() {
-        return driver.getCurrentUrl().equals("https://www.solvd.com/about-us.html");
+        return solvdTeamTitle != null;
     }
 }
