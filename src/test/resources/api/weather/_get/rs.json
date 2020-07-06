@@ -1,0 +1,40 @@
+{
+  "coord": {
+    "lon": 25.94,
+    "lat": 48.29
+  },
+  "weather": [{
+    "id": "regex:[\\d]",
+    "main": "type:String",
+    "description": "type:String",
+    "icon": "type:String"
+  }],
+  "base": "stations",
+  "main": {
+    "temp": "regex:[\\d]\\.?[\\d]?",
+    "feels_like": "regex:[\\d]\\.?[\\d]?",
+    "temp_min": "regex:[\\d]\\.?[\\d]?",
+    "temp_max": "regex:[\\d]\\.?[\\d]?",
+    "pressure": "regex:[\\d]",
+    "humidity": "regex:[\\d]"
+  },
+  "wind": {
+    "speed": "regex:[\\d]\\.?[\\d]?",
+    "deg": "regex:[\\d]\\.?[\\d]?"
+  },
+  "clouds": {
+    "all": "regex:[\\d]"
+  },
+  "dt": "regex:[\\d]",
+  "sys": {
+    "type": 3,
+    "id": "regex:[\\d]",
+    "country": "UA",
+    "sunrise": "regex:[\\d]",
+    "sunset": "regex:[\\d]"
+  },
+  "timezone": "regex:[\\d]",
+  "id": "regex:[\\d]",
+  "name": "Chernivtsi",
+  "cod": 200
+}
