@@ -5,7 +5,7 @@ import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.gui.solvd.components.SubscribeDialog;
-import com.qaprosoft.carina.demo.gui.solvd.helpers.TestData;
+import com.qaprosoft.carina.demo.utils.helpers.TestData;
 import com.qaprosoft.carina.demo.gui.solvd.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
